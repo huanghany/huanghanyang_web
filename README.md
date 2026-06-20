@@ -58,21 +58,43 @@ npm run start
 src/
 ├── app/
 │   ├── globals.css       # 全局样式、CSS 变量、动画关键帧
-│   ├── layout.tsx        # 根布局（元数据、语言设置）
-│   └── page.tsx          # 主页面（组合所有模块）
+│   ├── layout.tsx        # 根布局（SEO metadata、JSON-LD 结构化数据）
+│   ├── page.tsx          # 主页面（组合所有模块）
+│   └── sitemap.ts        # 站点地图（自动生成 sitemap.xml）
 ├── components/
 │   ├── Navbar.tsx         # 顶部导航栏（左上角 HHY 标识）
-│   ├── Hero.tsx           # 首屏英雄区（头像 + 打字机标语）
+│   ├── Hero.tsx           # 首屏英雄区（Next.js Image 头像 + 打字机标语）
 │   ├── About.tsx          # 关于我（介绍 + 技能进度条）
 │   ├── Experience.tsx     # 经历与教育（时间线）
 │   ├── Projects.tsx       # 项目展示（卡片 + 视频模态框）
 │   ├── Contact.tsx        # 联系方式（社交卡片 + 表单）
 │   └── Footer.tsx         # 页脚
+├── config/
+│   └── site.ts            # 站点配置（域名、SEO、社交链接，改这里即可）
 └── public/
-    └── avatar.png         # 个人头像
+    ├── avatar.png         # 个人头像
+    └── robots.txt         # 爬虫规则
 ```
 
 ## 自定义指南
+
+### 站点配置（域名、SEO、社交链接）
+
+修改 `src/config/site.ts` 即可，所有 SEO 相关配置集中在此文件：
+
+```ts
+export const siteConfig = {
+  name: "黄瀚扬",
+  domain: "huanghanyang345.xyz",   // ← 改域名只改这里
+  url: "https://huanghanyang345.xyz",
+  description: "黄瀚扬 - 视觉算法工程师 | 个人介绍网站",
+  email: "huanghanyang345@163.com",
+  github: "https://github.com/huanghany",
+  // ...
+};
+```
+
+`layout.tsx`（metadata）、`sitemap.ts`、`robots.txt` 均从此文件读取，无需多处修改。
 
 ### 个人信息
 
@@ -115,6 +137,29 @@ link: "https://github.com/huanghany/your-repo"
 ```
 点击"查看详情"按钮会在新标签页打开该链接。
 
+## SEO 与性能优化
+
+### SEO
+
+| 优化项 | 说明 | 文件 |
+|--------|------|------|
+| Open Graph | 微信/QQ 分享卡片预览（标题+描述+图片） | `src/app/layout.tsx` |
+| Twitter Card | Twitter 分享卡片预览 | `src/app/layout.tsx` |
+| JSON-LD 结构化数据 | Google 富摘要（Person 类型：姓名、职业、技能） | `src/app/layout.tsx` |
+| robots.txt | 允许爬虫抓取，指向 sitemap | `public/robots.txt` |
+| sitemap.xml | 自动生成站点地图 | `src/app/sitemap.ts` |
+| canonical URL | 避免重复内容 | `src/app/layout.tsx` |
+| keywords | 搜索关键词 | `src/app/layout.tsx` |
+| metadataBase | 相对路径转绝对路径 | `src/app/layout.tsx` |
+
+### 性能
+
+| 优化项 | 说明 | 文件 |
+|--------|------|------|
+| Next.js `<Image>` | 头像自动压缩、WebP 格式、懒加载、消除 CLS | `src/components/Hero.tsx` |
+| `priority` 属性 | 头像优先加载（LCP 元素） | `src/components/Hero.tsx` |
+| 字体优化 | 使用 Geist 字体（Next.js 内置优化） | `src/app/layout.tsx` |
+
 ## 部署
 
 推荐使用 [Vercel](https://vercel.com) 一键部署：
@@ -127,16 +172,15 @@ npx vercel
 
 ## 未来改进方向
 
-- [ ] 使用 Next.js `<Image>` 组件优化头像加载（自动压缩、懒加载、WebP 格式适配）
 - [ ] 添加深色/浅色主题切换
 - [ ] 添加博客/文章模块
 - [ ] 接入后端实现留言表单真实发送（如 Resend / EmailJS）
 - [ ] 添加项目详情页（独立路由，非模态框）
 - [ ] 添加 Google Analytics / 百度统计
-- [ ] SEO 优化（Open Graph、结构化数据）
 - [ ] 添加 i18n 国际化支持
 - [ ] PWA 支持（离线访问、安装到桌面）
 - [ ] 添加微信二维码图片展示
+- [ ] 制作 1200×630 OG 专属预览图（当前复用头像）
 
 ## 许可
 
