@@ -2,6 +2,8 @@
 
 基于 Next.js + Tailwind CSS 构建的个人自我介绍网站，具备丰富的交互动画和响应式设计。
 
+![网站示例图](public/网站示例图.jpg)
+
 ## 技术栈
 
 - **框架**: Next.js 16 (App Router)
@@ -49,7 +51,8 @@ npm run start
 ```
 
 开发服务器绑定 `0.0.0.0`，支持局域网访问：
-- 本机：http://localhost:3000
+
+- 本机：<http://localhost:3000>
 - 局域网：`http://<你的内网IP>:3000`
 
 ## 项目结构
@@ -116,6 +119,7 @@ export const siteConfig = {
 在 `Projects.tsx` 的 `projects` 数组中，将 `video: null` 改为：
 
 **本地视频：**
+
 ```ts
 video: { type: "local", src: "/videos/demo.mp4" }
 ```
@@ -123,6 +127,7 @@ video: { type: "local", src: "/videos/demo.mp4" }
 将视频文件放到 `public/videos/` 目录下。
 
 **B 站视频：**
+
 ```ts
 video: { type: "bilibili", src: "https://player.bilibili.com/player.html?bvid=BVxxxxxx" }
 ```
@@ -132,9 +137,11 @@ video: { type: "bilibili", src: "https://player.bilibili.com/player.html?bvid=BV
 ### 添加项目外链
 
 在 `projects` 数组中修改 `link` 字段：
+
 ```ts
 link: "https://github.com/huanghany/your-repo"
 ```
+
 点击"查看详情"按钮会在新标签页打开该链接。
 
 ## SEO 与性能优化
