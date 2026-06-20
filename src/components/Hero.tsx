@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -40,7 +41,14 @@ export default function Hero() {
           <div className="relative">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 p-[3px] animate-pulse-glow">
               <div className="w-full h-full rounded-full bg-[#0f172a] flex items-center justify-center overflow-hidden">
-                <img src="/avatar.png" alt="黄瀚扬" className="w-full h-full object-cover rounded-full" />
+                <Image
+                  src="/avatar.png"
+                  alt="黄瀚扬"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover rounded-full"
+                  priority
+                />
               </div>
             </div>
             {/* 在线状态指示 */}
